@@ -15,6 +15,21 @@ const copyDugme=document.querySelector("#outCopy");
 //   $temp.remove();
 // }
 
+function functionCopy() {
+  // Get the text field
+  var copyText = output;
+
+  // Select the text field
+  copyText.select();
+  copyText.setSelectionRange(0, 99999); // For mobile devices
+
+   // Copy the text inside the text field
+  navigator.clipboard.writeText(copyText.value);
+
+  // Alert the copied text
+  alert("Copied the text: " + copyText.value);
+}
+
 function handleClick() {
     /* Save value of myText to copyTxt variable */
     var copyTxt = output.value;
@@ -25,7 +40,8 @@ function handleClick() {
 
 copyDugme.addEventListener('click',(e)=>{
    e.preventDefault();
-   handleClick()
+   handleClick();
+   functionCopy();
 })
 
 sifDugme.addEventListener('click',(e)=>{
