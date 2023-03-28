@@ -1,10 +1,32 @@
 const alfabet='abcdefghijklmnopqrstuvwxyz ';
 
-let input=document.querySelector("#in");
-let output=document.querySelector("#out");
-let sifDugme=document.querySelector("#sif");
-let desifDugme=document.querySelector("#desif");
-let inicijalnaVrednost=document.querySelector("#kljuc");
+const input=document.querySelector("#in");
+const output=document.querySelector("#out");
+const sifDugme=document.querySelector("#sif");
+const desifDugme=document.querySelector("#desif");
+const inicijalnaVrednost=document.querySelector("#kljuc");
+const copyDugme=document.querySelector("#outCopy");
+
+// function copyToClipboard(element) {
+//   var $temp = $("<input>");
+//   $("body").append($temp);
+//   $temp.val($(element).text()).select();
+//   document.execCommand("copy");
+//   $temp.remove();
+// }
+
+function handleClick() {
+    /* Save value of myText to copyTxt variable */
+    var copyTxt = output.value;
+     /* Copy the text inside the text field */
+    navigator.clipboard.writeText(copyTxt);
+    alert("Kopiran tekst: " + copyTxt);
+}
+
+copyDugme.addEventListener('click',(e)=>{
+   e.preventDefault();
+   handleClick()
+})
 
 sifDugme.addEventListener('click',(e)=>{
    e.preventDefault();
@@ -31,18 +53,28 @@ const kreirajKljuc=(duzina,inicV)=>{
    // }
    // console.log(kljuc);
    // return kljuc;
+   const date=new Date(Date.now());
+   let pomeraj=date.getDate()*(date.getDay()+1)*date.getFullYear();
+   pomeraj=pomeraj%28;
+   //console.log(pomeraj);
    let kljuc='';
+
+   for(i=0;i<5;i++){
+   kljuc+=alfabet[(pomeraj+i*(date.getDay()+1))%28];
+   }
+
    inicV=inicV.toLowerCase();
    while(kljuc.length<duzina){
       kljuc+=inicV;
    }
+   console.log(kljuc);
    return kljuc;
 }
 
 const sifruj = (poruka,inicV) => {
    poruka=poruka.toLowerCase();
    let kljuc=kreirajKljuc(poruka.length,inicV);
-   console.log(kljuc);
+   console.log('Generisan kljuc:',kljuc);
    let sifrat='';
    for(i=0;i<poruka.length;i++){
       //.charat[],indexOf
@@ -54,11 +86,11 @@ const sifruj = (poruka,inicV) => {
          let indexSlova=alfabet.indexOf(slovo);
          let indexKljuca=alfabet.indexOf(kljuc[i]);
          let sifrovanindex=(indexSlova+indexKljuca)%27;
-         console.log(indexSlova,indexKljuca,sifrovanindex);
+         console.log("Indeks slova, kljuca, sifrovanIndeks",indexSlova,indexKljuca,sifrovanindex);
          sifrat+=alfabet.charAt(sifrovanindex);
       }
    }
-   console.log(sifrat);
+   console.log('Sifrat:',sifrat);
    return sifrat;
 }
 
