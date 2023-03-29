@@ -20,27 +20,18 @@ function functionCopy() {
   var copyText = output;
 
   // Select the text field
-  copyText.select();
+  
   copyText.setSelectionRange(0, 99999); // For mobile devices
+  copyText.select();
 
    // Copy the text inside the text field
   navigator.clipboard.writeText(copyText.value);
-
   // Alert the copied text
   alert("Copied the text: " + copyText.value);
 }
 
-function handleClick() {
-    /* Save value of myText to copyTxt variable */
-    var copyTxt = output.value;
-     /* Copy the text inside the text field */
-    navigator.clipboard.writeText(copyTxt);
-    alert("Kopiran tekst: " + copyTxt);
-}
-
 copyDugme.addEventListener('click',(e)=>{
    e.preventDefault();
-   handleClick();
    functionCopy();
 })
 
@@ -69,16 +60,8 @@ const kreirajKljuc=(duzina,inicV)=>{
    // }
    // console.log(kljuc);
    // return kljuc;
-   const date=new Date(Date.now());
-   let pomeraj=date.getDate()*(date.getDay()+1)*date.getFullYear();
-   pomeraj=pomeraj%28;
    //console.log(pomeraj);
    let kljuc='';
-
-   for(i=0;i<5;i++){
-   kljuc+=alfabet[(pomeraj+i*(date.getDay()+1))%28];
-   }
-
    inicV=inicV.toLowerCase();
    while(kljuc.length<duzina){
       kljuc+=inicV;
@@ -88,6 +71,9 @@ const kreirajKljuc=(duzina,inicV)=>{
 }
 
 const sifruj = (poruka,inicV) => {
+   const date=new Date(Date.now());
+   let pomeraj=date.getDate()*(date.getDay()+1)*date.getFullYear()*(date.getMonth()+1);
+   pomeraj=pomeraj%27;
    poruka=poruka.toLowerCase();
    let kljuc=kreirajKljuc(poruka.length,inicV);
    console.log('Generisan kljuc:',kljuc);
@@ -101,7 +87,7 @@ const sifruj = (poruka,inicV) => {
       else{
          let indexSlova=alfabet.indexOf(slovo);
          let indexKljuca=alfabet.indexOf(kljuc[i]);
-         let sifrovanindex=(indexSlova+indexKljuca)%27;
+         let sifrovanindex=(indexSlova+indexKljuca+pomeraj)%27;
          console.log("Indeks slova, kljuca, sifrovanIndeks",indexSlova,indexKljuca,sifrovanindex);
          sifrat+=alfabet.charAt(sifrovanindex);
       }
@@ -111,6 +97,9 @@ const sifruj = (poruka,inicV) => {
 }
 
 const desifruj=(sifrat,inicV)=>{
+   const date=new Date(Date.now());
+   let pomeraj=date.getDate()*(date.getDay()+1)*date.getFullYear()*(date.getMonth()+1);
+   pomeraj=pomeraj%27;
    let kljuc=kreirajKljuc(sifrat.length,inicV);
    console.log(kljuc);
    let OT='';
@@ -123,14 +112,15 @@ const desifruj=(sifrat,inicV)=>{
       else{
          let indexSlova=alfabet.indexOf(slovo);
          let indexKljuca=alfabet.indexOf(kljuc[i]);
-         if(indexSlova-indexKljuca>=0){
-            rezultat=(indexSlova-indexKljuca)%27;
+         if(indexSlova-indexKljuca-pomeraj>=0){
+            rezultat=(indexSlova-indexKljuca-pomeraj)%27;
          }else{
-            rezultat=(27-(-(indexSlova-indexKljuca)))%27;
+            rezultat=(27-(-(indexSlova-indexKljuca-pomeraj)))%27;
          }
          let desifrovaniIndeks=rezultat;
             //console.log(indexSlova,indexKljuca,desifrovaniIndeks);
          OT+=alfabet.charAt(desifrovaniIndeks);
+         console.log("Indeks slova, kljuca, sifrovanIndeks",indexSlova,indexKljuca,desifrovaniIndeks);
       }
    }
    console.log(OT);
