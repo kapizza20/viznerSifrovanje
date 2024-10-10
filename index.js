@@ -122,13 +122,13 @@ const desifruj=(sifrat,inicV)=>{
             rezultat=(indexSlova-indexKljuca-pomeraj)%27;
            console.log(rezultat);
          }else{
-            rezultat=(27-(-(indexSlova-indexKljuca-pomeraj)))%27;
+            rezultat=abs((27-(-(indexSlova-indexKljuca-pomeraj))))%27;
            console.log(rezultat);
          }
          let desifrovaniIndeks=rezultat;
             //console.log(indexSlova,indexKljuca,desifrovaniIndeks);
          OT+=alfabet.charAt(desifrovaniIndeks);
-         console.log("Indeks slova, kljuca, sifrovanIndeks",indexSlova,indexKljuca,desifrovaniIndeks);
+         console.log("Slovo,Indeks slova, kljuca, sifrovanIndeks -> ",slovo,indexSlova,indexKljuca,desifrovaniIndeks);
       }
    }
    console.log(OT);
