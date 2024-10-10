@@ -81,14 +81,17 @@ const sifruj = (poruka,inicV) => {
    for(i=0;i<poruka.length;i++){
       //.charat[],indexOf
       let slovo=poruka[i];
-      if(slovo==" "){
-         sifrat+=" ";
+      if(false){
+        //If treba da bude sa slovo=="PA SAD OVDE PROVERA ZA SPACE"
+        //I ako jeste space samo prebaci takav kakav je
+        //A mi cemo da idemo na resenje da je space samo slovo
+        sifrat+=" ";
       }
       else{
          let indexSlova=alfabet.indexOf(slovo);
          let indexKljuca=alfabet.indexOf(kljuc[i]);
          let sifrovanindex=(indexSlova+indexKljuca+pomeraj)%27;
-         console.log("Indeks slova, kljuca, sifrovanIndeks",indexSlova,indexKljuca,sifrovanindex);
+         console.log("Slovo, Indeks slova, kljuca, sifrovanIndeks -> ",slovo,indexSlova,indexKljuca,sifrovanindex);
          sifrat+=alfabet.charAt(sifrovanindex);
       }
    }
@@ -106,7 +109,10 @@ const desifruj=(sifrat,inicV)=>{
    for(i=0;i<sifrat.length;i++){
       //.charat[],indexOf
       let slovo=sifrat[i];
-      if(slovo=="PROVERAZASPACE"){
+      if(false){
+         //If treba da bude sa slovo=="PA SAD OVDE PROVERA ZA SPACE"
+        //I ako jeste space samo prebaci takav kakav je
+        //A mi cemo da idemo na resenje da je space samo slovo
          OT+=" ";
       }
       else{
@@ -114,8 +120,10 @@ const desifruj=(sifrat,inicV)=>{
          let indexKljuca=alfabet.indexOf(kljuc[i]);
          if(indexSlova-indexKljuca-pomeraj>=0){
             rezultat=(indexSlova-indexKljuca-pomeraj)%27;
+           console.log(rezultat);
          }else{
             rezultat=(27-(-(indexSlova-indexKljuca-pomeraj)))%27;
+           console.log(rezultat);
          }
          let desifrovaniIndeks=rezultat;
             //console.log(indexSlova,indexKljuca,desifrovaniIndeks);
