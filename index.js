@@ -118,7 +118,7 @@ const desifruj=(sifrat,inicV)=>{
       else{
          let indexSlova=alfabet.indexOf(slovo);
          let indexKljuca=alfabet.indexOf(kljuc[i]);
-         if(indexSlova-indexKljuca-pomeraj>=0){
+         if((indexSlova-indexKljuca-pomeraj)>=0){
             rezultat=(indexSlova-indexKljuca-pomeraj)%27;
            console.log(rezultat);
          }else{
