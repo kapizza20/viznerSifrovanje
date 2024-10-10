@@ -122,7 +122,7 @@ const desifruj=(sifrat,inicV)=>{
             rezultat=(indexSlova-indexKljuca-pomeraj)%27;
            console.log(rezultat);
          }else{
-            rezultat=abs((27-(-(indexSlova-indexKljuca-pomeraj))))%27;
+            rezultat=Math.abs((27-(-(indexSlova-indexKljuca-pomeraj))))%27;
            console.log(rezultat);
          }
          let desifrovaniIndeks=rezultat;
