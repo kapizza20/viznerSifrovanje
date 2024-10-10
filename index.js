@@ -81,7 +81,7 @@ const sifruj = (poruka,inicV) => {
    for(i=0;i<poruka.length;i++){
       //.charat[],indexOf
       let slovo=poruka[i];
-      if(slovo=="PROVERAZASPACE"){
+      if(slovo==" "){
          sifrat+=" ";
       }
       else{
